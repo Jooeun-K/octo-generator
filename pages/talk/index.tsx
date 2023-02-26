@@ -1,10 +1,11 @@
-import TalkPreview from "@/components/talk/preview";
+import TalkEditor from "@/components/talk/Editor";
+import TalkPreview from "@/components/talk/Preview";
 
 const Talk = () => {
   return (
     <>
       <TalkPreview />
-      <div>입력부</div>
+      <TalkEditor />
     </>
   );
 };

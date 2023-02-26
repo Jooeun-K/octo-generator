@@ -1,7 +1,7 @@
-import styles from "./TalkPreview.module.css";
+import styles from "./style.module.css";
 
 const TalkPreview = () => {
-  return <div className={styles.wrapper}>preview</div>;
+  return <div className={styles.wrapper}>Preview</div>;
 };
 
 export default TalkPreview;
