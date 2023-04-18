@@ -28,7 +28,7 @@ const TalkPreview = () => {
       .then((dataUrl) => {
         const date = generateDateTimeString(new Date());
         const link = document.createElement("a");
-        link.download = `[${date}] octo-generate-talk.png`;
+        link.download = `[${date}] octo-talk.png`;
         link.href = dataUrl;
         link.click();
       })
@@ -36,6 +36,7 @@ const TalkPreview = () => {
         console.log(err);
       });
   }, [previewRef]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.preview} ref={previewRef}>
