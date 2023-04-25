@@ -1,0 +1,18 @@
+.common-button {
+    padding: 10px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: 1px solid gray;
+}
+
+.PRIMARY_FILLED {
+    background: red;
+    border: 1px solid red;
+    color: white;
+}
+
+.PRIMARY_OUTLINED {
+    background: white;
+    border: 1px solid red;
+    color: black
+}
