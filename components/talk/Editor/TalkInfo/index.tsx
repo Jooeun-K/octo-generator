@@ -87,7 +87,7 @@ const TalkInfo = () => {
         </p>
         <p>
           {talkUsers.map((user) => (
-            <div>
+            <div key={user.uid}>
               <span>{user.name}</span>
               <button onClick={() => onDeleteTalkUser(user.uid)}>X</button>
             </div>
