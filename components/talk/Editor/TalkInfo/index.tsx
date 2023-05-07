@@ -66,7 +66,7 @@ const TalkInfo = () => {
     <div>
       <h2>톡방 정보 입력</h2>
       <div>
-        <p>
+        <div>
           <label htmlFor="talk_title">톡방 이름</label>
           <input
             type="text"
@@ -74,8 +74,8 @@ const TalkInfo = () => {
             placeholder="톡방 이름을 입력해주세요"
             onChange={onChangeInfoInput}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           <label htmlFor="talk_title">톡방 멤버</label>
           <button onClick={onAddTalkUser}>톡방 멤버 추가</button>
           <input
@@ -84,8 +84,8 @@ const TalkInfo = () => {
             placeholder="톡방 멤버 이름을 입력해주세요"
             onChange={onChangeUserInput}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           {talkUsers.map((user) => (
             <div key={user.uid}>
               <span>{user.name}</span>
@@ -93,7 +93,7 @@ const TalkInfo = () => {
             </div>
           ))}
           {talkUsers.length === 0 && <span>톡방 멤버가 없습니다.</span>}
-        </p>
+        </div>
       </div>
     </div>
   );
