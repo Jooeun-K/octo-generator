@@ -3,12 +3,19 @@
   border-radius: 5px;
   font-size: 14px;
   border: 1px solid gray;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .PRIMARY_FILLED {
   background: #4c6ef5;
   border: 1px solid #4c6ef5;
   color: white;
+}
+
+.PRIMARY_FILLED:hover {
+  background: #3457e1;
+  border: 1px solid #3457e1;
 }
 
 .PRIMARY_OUTLINED {

@@ -1,0 +1,16 @@
+.calculatorBody {
+  width: 356px;
+  height: 566px;
+  background: #2d2a37;
+  /* background: gray; */
+  margin: 0 10px;
+}
+
+.buttonPad {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
