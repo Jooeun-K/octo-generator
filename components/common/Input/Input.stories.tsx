@@ -1,5 +1,5 @@
-import type { Meta, Story, StoryObj } from "@storybook/react";
-import Input from "./Input";
+import type { Meta, StoryObj } from "@storybook/react";
+import Input, { InputProps } from "./Input";
 
 const meta: Meta<typeof Input> = {
   title: "Common/Input",
@@ -8,16 +8,11 @@ const meta: Meta<typeof Input> = {
 };
 
 export default meta;
-// type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Input>;
 
-const Template = args => (
-    <div style={{width: "100%"}}>
-      <Input {...args} />
-    </div>
-  )
-
-export const Default = Template.bind({});
-Default.args = {
-  placeholder: "내용을 입력해주세요.",
-  inputType: "DEFAULT"
-}
+export const Default: Story = {
+  args: {
+    placeholder: "내용을 입력해주세요.",
+    inputType: "DEFAULT",
+  },
+};

@@ -12,8 +12,13 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   size?: "SMALL" | "MEDIUM" | "LARGE";
 }
 
-const Input = ({ placeholder, inputType = "DEFAULT", size = "SMALL", ...props }: InputProps) => {
-  console.log(inputType, size)
+const Input = ({
+  placeholder,
+  inputType = "DEFAULT",
+  size = "SMALL",
+  ...props
+}: InputProps) => {
+  console.log(inputType, size);
   return (
     <input
       type="text"
@@ -34,5 +39,4 @@ const INPUT_SIZE = {
   SMALL: "SMALL",
   MEDIUM: "MEDIUM",
   LARGE: "LARGE",
-
-}
+};
