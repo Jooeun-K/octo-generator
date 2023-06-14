@@ -1,22 +1,20 @@
-/**
- * 공통 Button
- */
-
 import { HTMLAttributes } from "react";
-import styles from "./Button.module.css";
+import { StyledButton } from "./Button.styles";
+
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string;
   buttonType: keyof typeof BUTTON_TYPE;
 }
 
+/**
+ * 공통 Button
+ */
+
 const Button = ({ text, buttonType, ...props }: ButtonProps) => {
   return (
-    <button
-      className={`${styles["common-button"]} ${styles[buttonType]}`}
-      {...props}
-    >
+    <StyledButton buttonType={buttonType} {...props}>
       {text}
-    </button>
+    </StyledButton>
   );
 };
 
