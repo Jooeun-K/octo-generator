@@ -1,29 +1,30 @@
-/**
- * 공통 Input
- */
-
 import { ChangeEvent, HTMLAttributes } from "react";
 import styles from "./Input.module.css";
+import { StyledInput } from "./Input.styles";
 
 export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   inputType: keyof typeof INPUT_TYPE;
-  size?: "SMALL" | "MEDIUM" | "LARGE";
+  inputSize?: keyof typeof INPUT_SIZE;
 }
+
+/**
+ * 공통 Input
+ */
 
 const Input = ({
   placeholder,
-  inputType = "DEFAULT",
-  size = "SMALL",
+  inputType = "PRIMARY",
+  inputSize = "SMALL",
   ...props
 }: InputProps) => {
-  console.log(inputType, size);
   return (
-    <input
+    <StyledInput
       type="text"
-      className={`${styles["common-input"]} ${styles[size]}`}
       placeholder={placeholder}
+      inputType={inputType}
+      inputSize={inputSize}
       {...props}
     />
   );
@@ -32,7 +33,8 @@ const Input = ({
 export default Input;
 
 const INPUT_TYPE = {
-  DEFAULT: "DEFAULT",
+  PRIMARY: "PRIMARY",
+  SECONDARY: "SECONDARY",
 };
 
 const INPUT_SIZE = {

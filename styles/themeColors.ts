@@ -9,6 +9,8 @@ export const secondaryColors = {
 };
 
 export const grayColors = {
+  GRAY400: "#ced4da",
+  GRAY500: "#9b9ea6",
   GRAY700: "#595b61",
   GRAY800: "#25262b",
 };
