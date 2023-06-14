@@ -14,6 +14,9 @@ dependencies:
   '@types/react-dom':
     specifier: 18.0.11
     version: 18.0.11
+  dotenv:
+    specifier: ^16.1.4
+    version: 16.1.4
   eslint:
     specifier: 8.34.0
     version: 8.34.0
@@ -61,6 +64,9 @@ devDependencies:
   '@storybook/testing-library':
     specifier: ^0.0.14-next.2
     version: 0.0.14-next.2
+  chromatic:
+    specifier: ^6.19.5
+    version: 6.19.5
   eslint-config-prettier:
     specifier: ^8.8.0
     version: 8.8.0(eslint@8.34.0)
@@ -4286,6 +4292,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /chromatic@6.19.5:
+    resolution: {integrity: sha512-IjBWI7PYQpDWoAs5hjVR/af1sgl+sH+zMV1u9wyiO6MORUhehoibS15J1Amh3Rg6nCOc0VA0DnWPn/lEeiOeTw==}
+    hasBin: true
+    dev: true
+
   /chrome-trace-event@1.0.3:
     resolution: {integrity: sha512-p3KULyQg4S7NIHixdwbGX+nFHkoBiA4YQmyWtjb8XngSKV124nJmRysgAeujbUVb15vh+RvFUfCPqU7rXk+hZg==}
     engines: {node: '>=6.0'}
@@ -4791,10 +4802,9 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /dotenv@16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+  /dotenv@16.1.4:
+    resolution: {integrity: sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==}
     engines: {node: '>=12'}
-    dev: true
 
   /duplexify@3.7.1:
     resolution: {integrity: sha512-07z8uv2wMyS51kKhD1KsdXJg5WQ6t93RneqRxUHnskXVtlYYkLqM0gqStQZ3pj073g687jPCHrqNfCzawLYh5g==}
@@ -6678,7 +6688,7 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       app-root-dir: 1.0.2
-      dotenv: 16.0.3
+      dotenv: 16.1.4
       dotenv-expand: 10.0.0
     dev: true
 
