@@ -1,6 +1,8 @@
 import { toPng } from "html-to-image";
 import { useCallback, useRef } from "react";
 import styles from "./style.module.css";
+import { ButtonBox, StyledPreview, StyledWrapper } from "./TalkPreview.styles";
+import Button from "@/components/common/button/Button";
 
 const generateDateTimeString = (date: Date) => {
   const dateString = new Intl.DateTimeFormat("ko", {
@@ -38,20 +40,18 @@ const TalkPreview = () => {
   }, [previewRef]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.preview} ref={previewRef}>
-        Preview
-      </div>
-      <div className={styles.button_box}>
-        <button
+    <StyledWrapper>
+      <StyledPreview ref={previewRef}>Preview</StyledPreview>
+      <ButtonBox>
+        <Button
           type="button"
           onClick={onClickExportImage}
-          className={styles.export_button}
+          buttonType="PRIMARY_FILLED"
         >
           이미지 다운로드
-        </button>
-      </div>
-    </div>
+        </Button>
+      </ButtonBox>
+    </StyledWrapper>
   );
 };
 

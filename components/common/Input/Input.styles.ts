@@ -52,3 +52,21 @@ export const StyledInput = styled("input", {
     },
   },
 });
+
+export const StyledLabel = styled("label", {
+  variants: {
+    show: {
+      true: {
+        color: "$GRAY400",
+      },
+      false: {
+        display: "block",
+        width: 0,
+        height: 0,
+        overflow: "hidden",
+        visibility: "hidden",
+        textIndent: "-9999px",
+      },
+    },
+  },
+});

@@ -7,6 +7,7 @@ export const StyledButton = styled("button", {
   border: "1px solid gray",
   cursor: "pointer",
   transition: "all 0.2s ease-in-out",
+  wordBreak: "keep-all",
   variants: {
     buttonType: {
       PRIMARY_FILLED: {
@@ -52,6 +53,20 @@ export const StyledButton = styled("button", {
         background: "white",
         border: "1px solid $colors$WARNING500",
         color: "$colors$WARNING500",
+      },
+    },
+    buttonSize: {
+      SMALL: {
+        padding: "8px 14px",
+        fontSize: "0.8rem",
+      },
+      MEDIUM: {
+        padding: "10px 16px",
+        fontSize: "0.85rem",
+      },
+      LARGE: {
+        padding: "12px 16px",
+        fontSize: "1rem",
       },
     },
   },

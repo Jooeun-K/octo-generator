@@ -1,19 +1,34 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 import { StyledButton } from "./Button.styles";
+import { CSS } from "@stitches/react";
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  text: string;
   buttonType: keyof typeof BUTTON_TYPE;
+  buttonSize?: keyof typeof BUTTON_SIZE;
+  type?: "button" | "submit" | "reset";
+  css?: CSS;
 }
 
 /**
  * 공통 Button
  */
 
-const Button = ({ text, buttonType, ...props }: ButtonProps) => {
+const Button = ({
+  buttonType,
+  type = "button",
+  buttonSize = "MEDIUM",
+  children,
+  css,
+  ...props
+}: PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton buttonType={buttonType} {...props}>
-      {text}
+    <StyledButton
+      buttonType={buttonType}
+      buttonSize={buttonSize}
+      css={{ ...css }}
+      {...props}
+    >
+      {children}
     </StyledButton>
   );
 };
@@ -29,4 +44,10 @@ const BUTTON_TYPE = {
   MONO_OUTLINED: "MONO_OUTLINED",
   DANGER_FILLED: "DANGER_FILLED",
   DANGER_OUTLINED: "DANGER_OUTLINED",
+};
+
+const BUTTON_SIZE = {
+  SMALL: "SMALL",
+  MEDIUM: "MEDIUM",
+  LARGE: "LARGE",
 };

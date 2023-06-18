@@ -1,36 +1,56 @@
-import { ChangeEvent, HTMLAttributes } from "react";
-import styles from "./Input.module.css";
-import { StyledInput } from "./Input.styles";
+import {
+  ChangeEvent,
+  ForwardedRef,
+  InputHTMLAttributes,
+  forwardRef,
+} from "react";
+import { StyledInput, StyledLabel } from "./Input.styles";
 
-export interface InputProps extends HTMLAttributes<HTMLInputElement> {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  label: string;
   placeholder?: string;
-  inputType: keyof typeof INPUT_TYPE;
+  inputType?: keyof typeof INPUT_TYPE;
   inputSize?: keyof typeof INPUT_SIZE;
+  showLabel?: boolean;
 }
 
 /**
  * 공통 Input
  */
 
-const Input = ({
-  placeholder,
-  inputType = "PRIMARY",
-  inputSize = "SMALL",
-  ...props
-}: InputProps) => {
+const Input = (
+  {
+    placeholder,
+    label,
+    inputType = "PRIMARY",
+    inputSize = "SMALL",
+    type = "text",
+    showLabel = false,
+    onChange,
+    ...props
+  }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
-    <StyledInput
-      type="text"
-      placeholder={placeholder}
-      inputType={inputType}
-      inputSize={inputSize}
-      {...props}
-    />
+    <>
+      <StyledLabel htmlFor={props.id} show={showLabel}>
+        {label}
+      </StyledLabel>
+      <StyledInput
+        type={type}
+        placeholder={placeholder}
+        inputType={inputType}
+        inputSize={inputSize}
+        onChange={onChange}
+        ref={ref}
+        {...props}
+      />
+    </>
   );
 };
 
-export default Input;
+export default forwardRef(Input);
 
 const INPUT_TYPE = {
   PRIMARY: "PRIMARY",

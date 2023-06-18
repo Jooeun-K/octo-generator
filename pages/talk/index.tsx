@@ -1,13 +1,13 @@
-import TalkEditor from "@/components/talk/Editor";
-import TalkPreview from "@/components/talk/Preview";
-import styles from "./style.module.css";
+import TalkEditor from "@/components/talk/TalkEditor/TalkEditor";
+import TalkPreview from "@/components/talk/TalkPreview/TalkPreview";
+import { StyledContainer } from "./styles";
 
 const Talk = () => {
   return (
-    <div className={styles.container}>
+    <StyledContainer>
       <TalkPreview />
       <TalkEditor />
-    </div>
+    </StyledContainer>
   );
 };
 
