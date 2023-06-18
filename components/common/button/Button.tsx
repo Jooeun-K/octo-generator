@@ -1,11 +1,10 @@
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import { StyledButton } from "./Button.styles";
 import { CSS } from "@stitches/react";
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType: keyof typeof BUTTON_TYPE;
   buttonSize?: keyof typeof BUTTON_SIZE;
-  type?: "button" | "submit" | "reset";
   css?: CSS;
 }
 
@@ -26,6 +25,7 @@ const Button = ({
       buttonType={buttonType}
       buttonSize={buttonSize}
       css={{ ...css }}
+      type={type}
       {...props}
     >
       {children}
