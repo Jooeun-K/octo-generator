@@ -15,7 +15,7 @@ import {
 
 // localStorage 활용해서 선 구현
 
-type UserType = {
+type UserDocument = {
   uid: string;
   name: string;
   profile?: string;
@@ -24,7 +24,7 @@ type UserType = {
   deletedAt: Date | null;
 };
 
-const initialUser: UserType = {
+const initialUser: UserDocument = {
   uid: "",
   name: "",
   createdAt: new Date(),
@@ -33,8 +33,8 @@ const initialUser: UserType = {
 };
 
 const TalkInfo = () => {
-  const [newUser, setNewUser] = useState<UserType>(initialUser);
-  const [talkUsers, setTalkUsers] = useState<UserType[]>([]);
+  const [newUser, setNewUser] = useState<UserDocument>(initialUser);
+  const [talkUsers, setTalkUsers] = useState<UserDocument[]>([]);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const TalkInfo = () => {
   const onDeleteTalkUser = (uid: string) => {
     const prevUserStr = localStorage.getItem("TALK_USER");
     const prevUser = prevUserStr ? JSON.parse(prevUserStr) : [];
-    const resultUser = prevUser.filter((user: UserType) => user.uid !== uid);
+    const resultUser = prevUser.filter((user: UserDocument) => user.uid !== uid);
     setTalkUsers(resultUser);
     localStorage.setItem("TALK_USER", JSON.stringify(resultUser));
   };
