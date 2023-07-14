@@ -32,7 +32,7 @@ const initialUser: UserDocument = {
   deletedAt: null,
 };
 
-const TalkInfo = () => {
+const InfoForm = () => {
   const [newUser, setNewUser] = useState<UserDocument>(initialUser);
   const [talkUsers, setTalkUsers] = useState<UserDocument[]>([]);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -152,4 +152,4 @@ const TalkInfo = () => {
   );
 };
 
-export default TalkInfo;
+export default InfoForm;

@@ -1,5 +1,11 @@
-const TalkContent = () => {
-  return <div>대화 내용 추가 및 편집</div>;
+import { Container, ContentHead } from "./ContentForm.styles";
+
+const ContentForm = () => {
+  return (
+    <Container>
+      <ContentHead>대화 내용 추가 및 편집</ContentHead>
+    </Container>
+  );
 };
 
-export default TalkContent;
+export default ContentForm;

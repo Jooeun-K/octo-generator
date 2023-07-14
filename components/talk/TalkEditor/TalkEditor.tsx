@@ -1,14 +1,14 @@
-import TalkContent from "./ContentForm/ContentForm";
+import ContentForm from "./ContentForm/ContentForm";
 import FileForm from "./FileForm/FileForm";
-import TalkInfo from "./InfoForm/InfoForm";
+import InfoForm from "./InfoForm/InfoForm";
 import { StyledWrapper } from "./TalkEditor.styles";
 
 const TalkEditor = () => {
   return (
     <StyledWrapper>
-      <TalkInfo />
-      <TalkContent />
-      <FileForm />
+      <InfoForm />
+      <ContentForm />
+      {/* <FileForm /> */}
     </StyledWrapper>
   );
 };
