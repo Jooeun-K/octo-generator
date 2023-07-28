@@ -1,11 +1,11 @@
-import { MouseEvent } from "react";
-import CalcButton from "./CalcButton/CalcButton";
-import styles from "./Calculator.module.css";
+import { MouseEvent } from 'react'
+import CalcButton from './CalcButton/CalcButton'
+import styles from './Calculator.module.css'
 
 const Calculator = () => {
   const onClickButton = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.dataset.value);
-  };
+    console.log(e.currentTarget.dataset.value)
+  }
 
   return (
     <div className={styles.calculatorBody}>
@@ -24,7 +24,7 @@ const Calculator = () => {
         <CalcButton value="#" onClick={onClickButton} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Calculator;
+export default Calculator

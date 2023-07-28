@@ -1,18 +1,13 @@
-import {
-  ChangeEvent,
-  ForwardedRef,
-  InputHTMLAttributes,
-  forwardRef,
-} from "react";
-import { StyledInput, StyledLabel } from "./Input.styles";
+import { ChangeEvent, ForwardedRef, InputHTMLAttributes, forwardRef } from 'react'
+import { StyledInput, StyledLabel } from './Input.styles'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  label: string;
-  placeholder?: string;
-  inputType?: keyof typeof INPUT_TYPE;
-  inputSize?: keyof typeof INPUT_SIZE;
-  showLabel?: boolean;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  label: string
+  placeholder?: string
+  inputType?: keyof typeof INPUT_TYPE
+  inputSize?: keyof typeof INPUT_SIZE
+  showLabel?: boolean
 }
 
 /**
@@ -23,9 +18,9 @@ const Input = (
   {
     placeholder,
     label,
-    inputType = "PRIMARY",
-    inputSize = "SMALL",
-    type = "text",
+    inputType = 'PRIMARY',
+    inputSize = 'SMALL',
+    type = 'text',
     showLabel = false,
     onChange,
     ...props
@@ -47,18 +42,18 @@ const Input = (
         {...props}
       />
     </>
-  );
-};
+  )
+}
 
-export default forwardRef(Input);
+export default forwardRef(Input)
 
 const INPUT_TYPE = {
-  PRIMARY: "PRIMARY",
-  SECONDARY: "SECONDARY",
-};
+  PRIMARY: 'PRIMARY',
+  SECONDARY: 'SECONDARY',
+}
 
 const INPUT_SIZE = {
-  SMALL: "SMALL",
-  MEDIUM: "MEDIUM",
-  LARGE: "LARGE",
-};
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+}

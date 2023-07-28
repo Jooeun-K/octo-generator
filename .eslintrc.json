@@ -1,8 +1,8 @@
 {
   "extends": [
-    "next/core-web-vitals",
+    "next",
     "plugin:storybook/recommended",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "plugins": ["storybook", "prettier"]
 }
