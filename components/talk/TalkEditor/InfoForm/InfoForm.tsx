@@ -2,11 +2,12 @@ import Input from '@/components/common/Input/Input'
 import Button from '@/components/common/button/Button'
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { InfoHead, NoUser, TitleRow, UserList, UserListItem, UsersRow } from './InfoForm.styles'
+import { TalkUser } from '@/types/talk.type'
+import { getAllTalkUser } from '@/utils/talkIDB.get'
+import { createTalkUser, deleteTalkUser } from '@/utils/talkIDB.post'
 
 // IDB reference:
 // https://all-dev-kang.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-IndexedDB-%EC%8B%A4%EC%A0%84-%EC%82%AC%EC%9A%A9%EB%B2%95-idb
-
-// localStorage 활용해서 선 구현
 
 type UserDocument = {
   uid: string
@@ -17,61 +18,57 @@ type UserDocument = {
   deletedAt: Date | null
 }
 
-const initialUser: UserDocument = {
-  uid: '',
+const initialUser: TalkUser = {
+  userId: '',
   name: '',
+  profileImg: null,
   createdAt: new Date(),
   updatedAt: new Date(),
   deletedAt: null,
 }
 
 const InfoForm = () => {
-  const [newUser, setNewUser] = useState<UserDocument>(initialUser)
-  const [talkUsers, setTalkUsers] = useState<UserDocument[]>([])
+  const [newUser, setNewUser] = useState<TalkUser>(initialUser)
+  const [talkUsers, setTalkUsers] = useState<TalkUser[]>([])
   const nameInputRef = useRef<HTMLInputElement>(null)
 
+  const fetchAllUsers = async () => {
+    const talkUsers = await getAllTalkUser()
+    setTalkUsers(talkUsers)
+    return talkUsers
+  }
+
   useEffect(() => {
-    const talkUsers = localStorage.getItem('TALK_USER')
-    setTalkUsers(JSON.parse(talkUsers || '[]'))
+    fetchAllUsers()
   }, [])
 
   const onChangeInfoInput = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(`${e.target.id} : ${e.target.value}`)
   }
 
-  const onChangeUserInput = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-    setNewUser((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }))
-  }
-
-  const addTalkUser = () => {
+  const handleAddTalkUser = async () => {
     const name = nameInputRef.current?.value
     if (!name) return alert('톡방 멤버 이름을 입력해주세요.')
 
-    const prevUserStr = localStorage.getItem('TALK_USER')
-    const prevUser = prevUserStr ? JSON.parse(prevUserStr) : []
-    const newUser = {
-      ...initialUser,
+    // IDB를 사용하는 경우에 대한 로직
+    const talkUserInfo: TalkUser = {
       name,
-      uid: self.crypto.randomUUID(),
+      userId: crypto.randomUUID(),
+      profileImg: null,
+      createdAt: new Date(),
+      deletedAt: null,
+      updatedAt: new Date(),
     }
-    const totalUser = [...prevUser, newUser]
 
-    setTalkUsers(totalUser)
-    localStorage.setItem('TALK_USER', JSON.stringify(totalUser))
+    await createTalkUser(talkUserInfo)
+    fetchAllUsers()
 
     nameInputRef.current.value = ''
   }
 
-  const onDeleteTalkUser = (uid: string) => {
-    const prevUserStr = localStorage.getItem('TALK_USER')
-    const prevUser = prevUserStr ? JSON.parse(prevUserStr) : []
-    const resultUser = prevUser.filter((user: UserDocument) => user.uid !== uid)
-    setTalkUsers(resultUser)
-    localStorage.setItem('TALK_USER', JSON.stringify(resultUser))
+  const handleDeleteTalkUser = async (uid: string) => {
+    await deleteTalkUser(uid)
+    fetchAllUsers()
   }
 
   const handleSubmitTitle = (e: FormEvent<HTMLFormElement>) => {
@@ -81,7 +78,7 @@ const InfoForm = () => {
 
   const handleSubmitName = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addTalkUser()
+    handleAddTalkUser()
   }
 
   return (
@@ -121,8 +118,8 @@ const InfoForm = () => {
         </form>
         <UserList>
           {talkUsers.map((user) => (
-            <UserListItem key={user.uid}>
-              <button onClick={() => onDeleteTalkUser(user.uid)}>
+            <UserListItem key={user.userId}>
+              <button onClick={() => handleDeleteTalkUser(user.userId)}>
                 <span className="text">{user.name}</span>
                 <span className="delete">X</span>
               </button>

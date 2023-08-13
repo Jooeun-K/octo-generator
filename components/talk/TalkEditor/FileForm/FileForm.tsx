@@ -2,7 +2,7 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { initializeApp } from 'firebase/app'
 import { ImageBox } from './FileForm.styles'
 import { openDB } from 'idb'
-import { uploadImageToArticle } from '@/utils/idb'
+import { uploadUserImage } from '@/utils/talkIDB.post'
 
 // const firebaseConfig = {
 //     storageBucket: 'gs://octo-generator.appspot.com'
@@ -21,7 +21,7 @@ const FileForm = () => {
     setImage(imgURL)
     console.log('imgURL: ', imgURL)
 
-    uploadImageToArticle(file)
+    uploadUserImage(file, 'asdf')
   }
 
   return (

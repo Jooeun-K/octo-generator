@@ -1,7 +1,7 @@
 export type TalkUser = {
   userId: string
   name: string
-  profileImg: string
+  profileImg: File | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -10,7 +10,7 @@ export type TalkUser = {
 export type TalkInfo = {
   talkId: string
   name: string
-  backgroundImg: string
+  backgroundImg: File | null
   time: string
   createdAt: Date
   updatedAt: Date
