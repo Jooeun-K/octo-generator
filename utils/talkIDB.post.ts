@@ -1,14 +1,14 @@
 import { TalkUser } from '@/types/talk.type'
 import { openUserDb } from './talkIDB.core'
 
-export const uploadUserImage = async (file: File, userId: string) => {
+export const uploadTalkUserImage = async (file: File, userId: string) => {
   const db = await openUserDb()
-  const targetUser = await db.get('users', userId)
+  const targetUser = await db.getFromIndex('users', 'userId', userId)
   const newUser = {
     ...targetUser,
     profileImg: file,
   }
-  await db.put('users', newUser, userId)
+  await db.put('users', newUser)
 }
 
 export const createTalkUser = async (userInfoObj: TalkUser) => {

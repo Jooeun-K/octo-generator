@@ -1,10 +1,22 @@
 import Input from '@/components/common/Input/Input'
 import Button from '@/components/common/button/Button'
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
-import { InfoHead, NoUser, TitleRow, UserList, UserListItem, UsersRow } from './InfoForm.styles'
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import {
+  DeleteButton,
+  InfoHead,
+  NoUser,
+  ProfileBox,
+  ProfileUploadButton,
+  TitleRow,
+  UserList,
+  UserListItem,
+  UserName,
+  UsersRow,
+} from './InfoForm.styles'
 import { TalkUser } from '@/types/talk.type'
 import { getAllTalkUser } from '@/utils/talkIDB.get'
-import { createTalkUser, deleteTalkUser } from '@/utils/talkIDB.post'
+import { createTalkUser, deleteTalkUser, uploadTalkUserImage } from '@/utils/talkIDB.post'
+import { generateImageUrl } from '@/utils/generateImageUrl'
 
 // IDB reference:
 // https://all-dev-kang.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-IndexedDB-%EC%8B%A4%EC%A0%84-%EC%82%AC%EC%9A%A9%EB%B2%95-idb
@@ -31,6 +43,7 @@ const InfoForm = () => {
   const [newUser, setNewUser] = useState<TalkUser>(initialUser)
   const [talkUsers, setTalkUsers] = useState<TalkUser[]>([])
   const nameInputRef = useRef<HTMLInputElement>(null)
+  const fileRef = useRef<HTMLInputElement[]>([])
 
   const fetchAllUsers = async () => {
     const talkUsers = await getAllTalkUser()
@@ -49,6 +62,7 @@ const InfoForm = () => {
   const handleAddTalkUser = async () => {
     const name = nameInputRef.current?.value
     if (!name) return alert('톡방 멤버 이름을 입력해주세요.')
+    if (name.length < 2 || name.length > 15) return alert('톡방 멤버 이름은 2~10자로 입력해주세요.')
 
     // IDB를 사용하는 경우에 대한 로직
     const talkUserInfo: TalkUser = {
@@ -67,8 +81,11 @@ const InfoForm = () => {
   }
 
   const handleDeleteTalkUser = async (uid: string) => {
-    await deleteTalkUser(uid)
-    fetchAllUsers()
+    const check = confirm('정말로 해당 유저를 삭제하시겠습니까?')
+    if (check) {
+      await deleteTalkUser(uid)
+      fetchAllUsers()
+    }
   }
 
   const handleSubmitTitle = (e: FormEvent<HTMLFormElement>) => {
@@ -79,6 +96,19 @@ const InfoForm = () => {
   const handleSubmitName = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     handleAddTalkUser()
+  }
+
+  const handleClickProfileButton = (e: MouseEvent<HTMLButtonElement>, idx: number) => {
+    e.preventDefault()
+    if (!fileRef.current) return
+    fileRef.current[idx].click()
+  }
+
+  const handleChangeProfileImage = async (e: ChangeEvent<HTMLInputElement>, userId: string) => {
+    if (!e.target?.files) return
+    const file = e.target.files[0]
+    await uploadTalkUserImage(file, userId)
+    fetchAllUsers()
   }
 
   return (
@@ -106,7 +136,6 @@ const InfoForm = () => {
               type="text"
               id="name"
               placeholder="톡방 멤버 이름을 입력해주세요"
-              // onChange={onChangeUserInput}
               inputType="PRIMARY"
               label="톡방 멤버"
               ref={nameInputRef}
@@ -117,12 +146,27 @@ const InfoForm = () => {
           </UsersRow>
         </form>
         <UserList>
-          {talkUsers.map((user) => (
+          {talkUsers.map((user, idx) => (
             <UserListItem key={user.userId}>
-              <button onClick={() => handleDeleteTalkUser(user.userId)}>
-                <span className="text">{user.name}</span>
-                <span className="delete">X</span>
-              </button>
+              <ProfileBox>
+                {user.profileImg ? (
+                  <img src={generateImageUrl(user.profileImg)} />
+                ) : (
+                  <ProfileUploadButton onClick={(e) => handleClickProfileButton(e, idx)} type="button">
+                    프로필
+                    <br />
+                    업로드
+                  </ProfileUploadButton>
+                )}
+              </ProfileBox>
+              <UserName>{user.name}</UserName>
+              <DeleteButton onClick={() => handleDeleteTalkUser(user.userId)}>삭제</DeleteButton>
+              <input
+                type="file"
+                ref={(el: HTMLInputElement) => (fileRef.current[idx] = el)}
+                style={{ display: 'none' }}
+                onChange={async (e) => handleChangeProfileImage(e, user.userId)}
+              />
             </UserListItem>
           ))}
           {talkUsers.length === 0 && <NoUser>톡방 멤버가 없습니다.</NoUser>}

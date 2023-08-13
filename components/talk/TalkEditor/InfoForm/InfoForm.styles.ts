@@ -31,24 +31,59 @@ export const UserList = styled('ul', {
 export const UserListItem = styled('li', {
   display: 'flex',
   alignItems: 'center',
-  background: '$PRIMARY100',
-  border: '1px solid $PRIMARY200',
-  borderRadius: 100,
+  color: '$GRAY800',
+  position: 'relative',
+  background: 'white',
+  borderRadius: '10px',
+  padding: '0 10px 0 0 ',
+  border: '1px solid $GRAY200',
+  width: 'calc(100% / 2 - 7px)',
+  minWidth: 230,
 
   '& button': {
-    padding: '7px 10px',
-    background: 'transparent',
-    border: 0,
-    outline: 0,
-    color: '$PRIMARY600',
-    fontSize: '0.8rem',
     cursor: 'pointer',
   },
+})
 
-  '& .text': {},
-  '& .delete': {
-    marginLeft: 7,
+export const ProfileBox = styled('div', {
+  width: 60,
+  height: 60,
+  borderRadius: '10px 0 0 10px',
+  overflow: 'hidden',
+  border: '1px solid $GRAY400',
+
+  '& img': {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
+})
+
+export const ProfileUploadButton = styled('button', {
+  width: '100%',
+  height: '100%',
+  borderRadius: '10px 0 0 10px',
+  background: '$PRIMARY500',
+  border: '1px solid $PRIMARY500',
+  color: 'rgba(255, 255, 255, 0.7)',
+})
+
+export const UserName = styled('div', {
+  color: '$GRAY800',
+  padding: '10px',
+  textAlign: 'left',
+  width: 'calc(100% - 110px)',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+})
+
+export const DeleteButton = styled('button', {
+  background: '$PRIMARY100',
+  border: '1px solid $PRIMARY500',
+  padding: '5px 10px',
+  color: '$PRIMARY600',
+  borderRadius: 3,
 })
 
 export const NoUser = styled('span', {
