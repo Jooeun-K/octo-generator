@@ -8,13 +8,9 @@ export type TalkUser = {
 }
 
 export type TalkInfo = {
-  talkId: string
-  name: string
+  title: string
   backgroundImg: File | null
   time: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
 }
 
 export type TalkChatContentType = 'TEXT' | 'IMAGE'

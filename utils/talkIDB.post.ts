@@ -1,5 +1,5 @@
 import { TalkInfo, TalkUser } from '@/types/talk.type'
-import { openInfoDb, openUserDb } from './talkIDB.core'
+import { TALK_INFO_KEY, initTalkInfo, openInfoDb, openUserDb } from './talkIDB.core'
 
 export const uploadTalkUserImage = async (file: File, userId: string) => {
   const db = await openUserDb()
@@ -37,10 +37,48 @@ export const deleteTalkUser = async (userId: string) => {
   }
 }
 
-export const updateTalkInfo = async (talkInfoObj: TalkInfo) => {
+export const createNewTalkInfo = async (obj: TalkInfo) => {
   const db = await openInfoDb()
+  await db.add('info', obj, TALK_INFO_KEY)
+}
+
+export const updateTalkTitle = async (title: string) => {
+  const db = await openInfoDb()
+  const prevInfo = await db.get('info', TALK_INFO_KEY)
+
+  if (!prevInfo) {
+    await createNewTalkInfo(initTalkInfo('title', title))
+    return
+  }
+
+  const newInfo: TalkInfo = {
+    ...prevInfo,
+    title,
+  }
+
   try {
-    await db.put('info', talkInfoObj)
+    await db.put('info', newInfo, TALK_INFO_KEY)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const updateTalkTime = async (time: string) => {
+  const db = await openInfoDb()
+  const prevInfo = await db.get('info', TALK_INFO_KEY)
+
+  if (!prevInfo) {
+    await createNewTalkInfo(initTalkInfo('time', time))
+    return
+  }
+
+  const newInfo: TalkInfo = {
+    ...prevInfo,
+    time,
+  }
+
+  try {
+    await db.put('info', newInfo, TALK_INFO_KEY)
   } catch (err) {
     console.log(err)
   }

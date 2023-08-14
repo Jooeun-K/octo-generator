@@ -15,7 +15,7 @@ import {
 } from './InfoForm.styles'
 import { TalkUser } from '@/types/talk.type'
 import { getAllTalkUser } from '@/utils/talkIDB.get'
-import { createTalkUser, deleteTalkUser, uploadTalkUserImage } from '@/utils/talkIDB.post'
+import { createTalkUser, deleteTalkUser, updateTalkTitle, uploadTalkUserImage } from '@/utils/talkIDB.post'
 import { generateImageUrl } from '@/utils/generateImageUrl'
 
 // IDB reference:
@@ -40,7 +40,7 @@ const initialUser: TalkUser = {
 }
 
 const InfoForm = () => {
-  const [newUser, setNewUser] = useState<TalkUser>(initialUser)
+  const [talkTitle, setTalkTitle] = useState('')
   const [talkUsers, setTalkUsers] = useState<TalkUser[]>([])
   const nameInputRef = useRef<HTMLInputElement>(null)
   const fileRef = useRef<HTMLInputElement[]>([])
@@ -56,7 +56,7 @@ const InfoForm = () => {
   }, [])
 
   const onChangeInfoInput = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(`${e.target.id} : ${e.target.value}`)
+    setTalkTitle(e.target.value)
   }
 
   const handleAddTalkUser = async () => {
@@ -90,7 +90,12 @@ const InfoForm = () => {
 
   const handleSubmitTitle = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert('title!!')
+    if (!talkTitle) return alert('톡방 이름을 입력해주세요.')
+    if (talkTitle.length > 10) return alert('톡방 이름은 10자 이내로 입력해주세요.')
+
+    updateTalkTitle(talkTitle)
+      .then(() => alert('톡방 이름이 변경되었습니다.'))
+      .catch((err) => console.log(err))
   }
 
   const handleSubmitName = (e: FormEvent<HTMLFormElement>) => {
