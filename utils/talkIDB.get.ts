@@ -2,7 +2,7 @@ import { openUserDb } from './talkIDB.core'
 
 export const getTalkUser = async (userId: string) => {
   const db = await openUserDb()
-  const user = await db.get('users', userId)
+  const user = await db.getFromIndex('users', 'userId', userId)
   return user
 }
 
