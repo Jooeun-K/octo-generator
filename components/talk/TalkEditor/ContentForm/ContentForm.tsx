@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react'
 import { Container, ContentHead } from './ContentForm.styles'
+import { getTalkInfo } from '@/utils/talkIDB.get'
+import { TalkInfo } from '@/types/talk.type'
+import useGetTalkInfo from '@/hooks/useGetTalkInfo'
 
 const ContentForm = () => {
   return (

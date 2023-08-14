@@ -1,6 +1,6 @@
 import Input from '@/components/common/Input/Input'
 import Button from '@/components/common/button/Button'
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, MouseEvent, useContext, useEffect, useRef, useState } from 'react'
 import {
   DeleteButton,
   InfoHead,
@@ -17,6 +17,9 @@ import { TalkUser } from '@/types/talk.type'
 import { getAllTalkUser } from '@/utils/talkIDB.get'
 import { createTalkUser, deleteTalkUser, updateTalkTitle, uploadTalkUserImage } from '@/utils/talkIDB.post'
 import { generateImageUrl } from '@/utils/generateImageUrl'
+import useGetTalkInfo from '@/hooks/useGetTalkInfo'
+import useGetAllTalkUser from '@/hooks/useGetAllTalkUser'
+import { TalkContext } from '@/pages/talk'
 
 // IDB reference:
 // https://all-dev-kang.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-IndexedDB-%EC%8B%A4%EC%A0%84-%EC%82%AC%EC%9A%A9%EB%B2%95-idb
@@ -30,29 +33,15 @@ type UserDocument = {
   deletedAt: Date | null
 }
 
-const initialUser: TalkUser = {
-  userId: '',
-  name: '',
-  profileImg: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  deletedAt: null,
-}
-
 const InfoForm = () => {
+  const { fetchTalkInfo } = useContext(TalkContext)
   const [talkTitle, setTalkTitle] = useState('')
-  const [talkUsers, setTalkUsers] = useState<TalkUser[]>([])
+  const { talkUsers, fetchAllTalkUser } = useGetAllTalkUser()
   const nameInputRef = useRef<HTMLInputElement>(null)
   const fileRef = useRef<HTMLInputElement[]>([])
 
-  const fetchAllUsers = async () => {
-    const talkUsers = await getAllTalkUser()
-    setTalkUsers(talkUsers)
-    return talkUsers
-  }
-
   useEffect(() => {
-    fetchAllUsers()
+    fetchAllTalkUser()
   }, [])
 
   const onChangeInfoInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +64,7 @@ const InfoForm = () => {
     }
 
     await createTalkUser(talkUserInfo)
-    fetchAllUsers()
+    fetchAllTalkUser()
 
     nameInputRef.current.value = ''
   }
@@ -84,7 +73,7 @@ const InfoForm = () => {
     const check = confirm('정말로 해당 유저를 삭제하시겠습니까?')
     if (check) {
       await deleteTalkUser(uid)
-      fetchAllUsers()
+      fetchAllTalkUser()
     }
   }
 
@@ -94,7 +83,12 @@ const InfoForm = () => {
     if (talkTitle.length > 10) return alert('톡방 이름은 10자 이내로 입력해주세요.')
 
     updateTalkTitle(talkTitle)
-      .then(() => alert('톡방 이름이 변경되었습니다.'))
+      .then(() => {
+        alert('톡방 이름이 변경되었습니다.')
+        fetchTalkInfo()
+        setTalkTitle('')
+        return
+      })
       .catch((err) => console.log(err))
   }
 
@@ -113,7 +107,7 @@ const InfoForm = () => {
     if (!e.target?.files) return
     const file = e.target.files[0]
     await uploadTalkUserImage(file, userId)
-    fetchAllUsers()
+    fetchAllTalkUser()
   }
 
   return (
@@ -127,6 +121,7 @@ const InfoForm = () => {
               id="title"
               placeholder="톡방 이름을 입력해주세요"
               onChange={onChangeInfoInput}
+              value={talkTitle}
               inputType="PRIMARY"
               label="톡방 이름"
             />

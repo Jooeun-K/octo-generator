@@ -1,8 +1,10 @@
 import { toPng } from 'html-to-image'
-import { useCallback, useRef } from 'react'
+import { useCallback, useContext, useEffect, useRef } from 'react'
 import styles from './style.module.css'
 import { ButtonBox, StyledPreview, StyledWrapper } from './TalkPreview.styles'
 import Button from '@/components/common/button/Button'
+import useGetTalkInfo from '@/hooks/useGetTalkInfo'
+import { TalkContext, TalkContextType } from '@/pages/talk'
 
 const generateDateTimeString = (date: Date) => {
   const dateString = new Intl.DateTimeFormat('ko', {
@@ -22,6 +24,12 @@ const generateDateTimeString = (date: Date) => {
 
 const TalkPreview = () => {
   const previewRef = useRef<HTMLDivElement>(null)
+  // const { talkInfo, fetchTalkInfo } = useGetTalkInfo()
+  const { talkUsers, talkInfo, fetchTalkInfo } = useContext(TalkContext)
+
+  useEffect(() => {
+    fetchTalkInfo()
+  }, [])
 
   const onClickExportImage = useCallback(() => {
     if (!previewRef.current) return
@@ -41,7 +49,10 @@ const TalkPreview = () => {
 
   return (
     <StyledWrapper>
-      <StyledPreview ref={previewRef}>Preview</StyledPreview>
+      <StyledPreview ref={previewRef}>
+        <p>title: {talkInfo?.title}</p>
+        <p>time: {talkInfo?.time}</p>
+      </StyledPreview>
       <ButtonBox>
         <Button type="button" onClick={onClickExportImage} buttonType="PRIMARY_FILLED">
           이미지 다운로드
