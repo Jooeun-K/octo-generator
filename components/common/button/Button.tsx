@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
-import { StyledButton } from './Button.styles'
 import { CSS } from '@stitches/react'
+import { StyledButton } from './Button.styles'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType: keyof typeof BUTTON_TYPE
