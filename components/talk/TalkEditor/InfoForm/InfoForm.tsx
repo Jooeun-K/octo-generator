@@ -14,10 +14,8 @@ import {
   UsersRow,
 } from './InfoForm.styles'
 import { TalkUser } from '@/types/talk.type'
-import { getAllTalkUser } from '@/utils/talkIDB.get'
 import { createTalkUser, deleteTalkUser, updateTalkTitle, uploadTalkUserImage } from '@/utils/talkIDB.post'
 import { generateImageUrl } from '@/utils/generateImageUrl'
-import useGetTalkInfo from '@/hooks/useGetTalkInfo'
 import useGetAllTalkUser from '@/hooks/useGetAllTalkUser'
 import { TalkContext } from '@/hooks/useTalkContext'
 
