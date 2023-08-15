@@ -1,5 +1,5 @@
 import Input from '@/components/common/Input/Input'
-import Button from '@/components/common/button/Button'
+import Button from '@/components/common/Button/Button'
 import { ChangeEvent, FormEvent, MouseEvent, useContext, useEffect, useRef, useState } from 'react'
 import {
   DeleteButton,
@@ -19,7 +19,7 @@ import { createTalkUser, deleteTalkUser, updateTalkTitle, uploadTalkUserImage } 
 import { generateImageUrl } from '@/utils/generateImageUrl'
 import useGetTalkInfo from '@/hooks/useGetTalkInfo'
 import useGetAllTalkUser from '@/hooks/useGetAllTalkUser'
-import { TalkContext } from '@/pages/talk'
+import { TalkContext } from '@/hooks/useTalkContext'
 
 // IDB reference:
 // https://all-dev-kang.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-IndexedDB-%EC%8B%A4%EC%A0%84-%EC%82%AC%EC%9A%A9%EB%B2%95-idb
@@ -135,13 +135,13 @@ const InfoForm = () => {
             <Input
               type="text"
               id="name"
-              placeholder="톡방 멤버 이름을 입력해주세요"
+              placeholder="톡방에 추가할 유저 이름을 입력해주세요"
               inputType="PRIMARY"
               label="톡방 멤버"
               ref={nameInputRef}
             />
             <Button type="submit" buttonType="PRIMARY_FILLED" buttonSize="SMALL" css={{ minWidth: '90px' }}>
-              멤버 추가
+              유저 추가
             </Button>
           </UsersRow>
         </form>
@@ -150,7 +150,7 @@ const InfoForm = () => {
             <UserListItem key={user.userId}>
               <ProfileBox>
                 {user.profileImg ? (
-                  <img src={generateImageUrl(user.profileImg)} />
+                  <img src={generateImageUrl(user.profileImg)} alt={`${user.name} 프로필`} />
                 ) : (
                   <ProfileUploadButton onClick={(e) => handleClickProfileButton(e, idx)} type="button">
                     프로필
