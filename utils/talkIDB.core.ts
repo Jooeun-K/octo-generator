@@ -1,4 +1,4 @@
-import { TalkInfo, TalkUser } from '@/types/talk.type'
+import { TalkChat, TalkInfo, TalkUser } from '@/types/talk.type'
 import { DBSchema, openDB } from 'idb'
 
 interface TalkUserDb extends DBSchema {
@@ -13,6 +13,14 @@ interface TalkInfoDb extends DBSchema {
   info: {
     key: string
     value: TalkInfo
+  }
+}
+
+interface TalkCahtDb extends DBSchema {
+  chat: {
+    key: number
+    value: TalkChat
+    indexes: { chatId: string }
   }
 }
 
@@ -47,4 +55,16 @@ export const initTalkInfo = (key: string, value: string | File) => {
     [key]: value,
   }
   return initialInfo
+}
+
+export const openChatDb = async () => {
+  return await openDB<TalkCahtDb>('octo-talk-chat-database', undefined, {
+    async upgrade(db, oldVersion, newVersion, transaction, event) {
+      const store = db.createObjectStore('chat', {
+        keyPath: 'index',
+        autoIncrement: true,
+      })
+      store.createIndex('chatId', 'chatId')
+    },
+  })
 }

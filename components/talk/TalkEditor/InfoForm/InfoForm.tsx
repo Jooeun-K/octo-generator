@@ -32,9 +32,8 @@ type UserDocument = {
 }
 
 const InfoForm = () => {
-  const { fetchTalkInfo } = useContext(TalkContext)
+  const { fetchTalkInfo, talkUsers, fetchAllTalkUser } = useContext(TalkContext)
   const [talkTitle, setTalkTitle] = useState('')
-  const { talkUsers, fetchAllTalkUser } = useGetAllTalkUser()
   const nameInputRef = useRef<HTMLInputElement>(null)
   const fileRef = useRef<HTMLInputElement[]>([])
 

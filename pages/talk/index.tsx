@@ -1,6 +1,7 @@
 import TalkEditor from '@/components/talk/TalkEditor/TalkEditor'
 import TalkPreview from '@/components/talk/TalkPreview/TalkPreview'
 import useGetAllTalkUser from '@/hooks/useGetAllTalkUser'
+import useGetTalkChatList from '@/hooks/useGetTalkChatList'
 import useGetTalkInfo from '@/hooks/useGetTalkInfo'
 import useTalkContext from '@/hooks/useTalkContext'
 import { styled } from '@/styles/stitches.config'
@@ -20,10 +21,14 @@ const StyledContainer = styled('div', {
 const Talk = () => {
   const { talkUsers, fetchAllTalkUser } = useGetAllTalkUser()
   const { talkInfo, fetchTalkInfo } = useGetTalkInfo()
+  const { talkChatList, fetchTalkChatList } = useGetTalkChatList()
+
   const TalkContext = useTalkContext()
 
   return (
-    <TalkContext.Provider value={{ talkUsers, talkInfo, fetchAllTalkUser, fetchTalkInfo }}>
+    <TalkContext.Provider
+      value={{ talkUsers, talkInfo, talkChatList, fetchAllTalkUser, fetchTalkInfo, fetchTalkChatList }}
+    >
       <StyledContainer>
         <TalkPreview />
         <TalkEditor />

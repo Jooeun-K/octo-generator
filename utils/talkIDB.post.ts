@@ -1,5 +1,5 @@
-import { TalkInfo, TalkUser } from '@/types/talk.type'
-import { TALK_INFO_KEY, initTalkInfo, openInfoDb, openUserDb } from './talkIDB.core'
+import { TalkChat, TalkInfo, TalkUser } from '@/types/talk.type'
+import { TALK_INFO_KEY, initTalkInfo, openChatDb, openInfoDb, openUserDb } from './talkIDB.core'
 
 export const uploadTalkUserImage = async (file: File, userId: string) => {
   const db = await openUserDb()
@@ -81,5 +81,26 @@ export const updateTalkTime = async (time: string) => {
     await db.put('info', newInfo, TALK_INFO_KEY)
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const createNewChat = async (chatObj: TalkChat) => {
+  const db = await openChatDb()
+  await db.add('chat', chatObj)
+}
+
+export const deleteChat = async (chatId: string) => {
+  const db = await openChatDb()
+  const key = await db.getKeyFromIndex('chat', 'chatId', chatId)
+
+  if (!key) {
+    console.warn('삭제할 채팅이 존재하지 않습니다.')
+    return
+  }
+
+  try {
+    await db.delete('chat', key)
+  } catch (err) {
+    console.error(err)
   }
 }

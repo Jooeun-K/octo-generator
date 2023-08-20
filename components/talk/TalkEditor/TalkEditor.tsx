@@ -1,5 +1,4 @@
-import ContentForm from './ContentForm/ContentForm'
-import FileForm from './FileForm/FileForm'
+import ContentForm from './ChatForm/ChatForm'
 import InfoForm from './InfoForm/InfoForm'
 import { StyledWrapper } from './TalkEditor.styles'
 
@@ -8,7 +7,6 @@ const TalkEditor = () => {
     <StyledWrapper>
       <InfoForm />
       <ContentForm />
-      {/* <FileForm /> */}
     </StyledWrapper>
   )
 }
