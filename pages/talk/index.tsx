@@ -6,7 +6,8 @@ import useTalkContext from '@/hooks/useTalkContext'
 import { styled } from '@/styles/stitches.config'
 
 const StyledContainer = styled('div', {
-  width: '75vw',
+  width: '95%',
+  maxWidth: 800,
   height: 'auto',
   display: 'flex',
   flexDirection: 'row',

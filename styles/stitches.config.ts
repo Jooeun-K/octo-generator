@@ -1,21 +1,7 @@
-import { createStitches } from "@stitches/react";
-import {
-  grayColors,
-  primaryColors,
-  secondaryColors,
-  warningColors,
-} from "./themeColors";
+import { createStitches } from '@stitches/react'
+import { grayColors, primaryColors, secondaryColors, warningColors } from './themeColors'
 
-export const {
-  styled,
-  css,
-  globalCss,
-  keyframes,
-  getCssText,
-  theme,
-  createTheme,
-  config,
-} = createStitches({
+export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme, config } = createStitches({
   theme: {
     colors: {
       ...primaryColors,
@@ -25,6 +11,6 @@ export const {
     },
   },
   media: {
-    bp1: "(min-width: 480px)",
+    bp1: '(min-width: 480px)',
   },
-});
+})
