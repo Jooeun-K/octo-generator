@@ -7,7 +7,7 @@ export const getTalkUser = async (userId: string) => {
   return user
 }
 
-export const getAllTalkUser = async () => {
+export const getTalkUserList = async () => {
   const db = await openUserDb()
   const users = await db.getAll('users')
   return users

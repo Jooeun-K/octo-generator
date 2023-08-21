@@ -5,7 +5,7 @@ export type TalkContextType = {
   talkUsers: TalkUser[]
   talkInfo: TalkInfo
   talkChatList: TalkChat[]
-  fetchAllTalkUser: () => void
+  fetchTalkUserList: () => void
   fetchTalkInfo: () => void
   fetchTalkChatList: () => void
 }
@@ -18,7 +18,7 @@ const initialTalkContext: TalkContextType = {
     time: '',
   },
   talkChatList: [],
-  fetchAllTalkUser: () => {},
+  fetchTalkUserList: () => {},
   fetchTalkInfo: () => {},
   fetchTalkChatList: () => {},
 }

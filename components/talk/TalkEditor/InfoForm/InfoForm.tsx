@@ -16,7 +16,6 @@ import {
 import { TalkUser } from '@/types/talk.type'
 import { createTalkUser, deleteTalkUser, updateTalkTitle, uploadTalkUserImage } from '@/utils/talkIDB.post'
 import { generateImageUrl } from '@/utils/generateImageUrl'
-import useGetAllTalkUser from '@/hooks/useGetAllTalkUser'
 import { TalkContext } from '@/hooks/useTalkContext'
 
 // IDB reference:

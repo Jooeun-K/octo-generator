@@ -1,23 +1,23 @@
 import { TalkUser } from '@/types/talk.type'
-import { getAllTalkUser, getTalkUser } from '@/utils/talkIDB.get'
+import { getTalkUserList } from '@/utils/talkIDB.get'
 import { useCallback, useState } from 'react'
 
-const useGetAllTalkUser = () => {
+const useGetTalkUserList = () => {
   const [talkUsers, setTalkUsers] = useState<TalkUser[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const fetchAllTalkUser = useCallback(async () => {
+  const fetchTalkUserList = useCallback(async () => {
     setIsLoading(true)
-    const talkUsers = await getAllTalkUser()
+    const talkUsers = await getTalkUserList()
     setTalkUsers(talkUsers)
     setIsLoading(false)
   }, [])
 
   return {
     talkUsers,
-    fetchAllTalkUser,
+    fetchTalkUserList,
     isLoading,
   }
 }
 
-export default useGetAllTalkUser
+export default useGetTalkUserList
