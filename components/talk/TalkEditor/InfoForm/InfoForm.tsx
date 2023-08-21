@@ -31,13 +31,13 @@ type UserDocument = {
 }
 
 const InfoForm = () => {
-  const { fetchTalkInfo, talkUsers, fetchAllTalkUser } = useContext(TalkContext)
+  const { fetchTalkInfo, talkUsers, fetchTalkUserList } = useContext(TalkContext)
   const [talkTitle, setTalkTitle] = useState('')
   const nameInputRef = useRef<HTMLInputElement>(null)
   const fileRef = useRef<HTMLInputElement[]>([])
 
   useEffect(() => {
-    fetchAllTalkUser()
+    fetchTalkUserList()
   }, [])
 
   const onChangeInfoInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ const InfoForm = () => {
     }
 
     await createTalkUser(talkUserInfo)
-    fetchAllTalkUser()
+    fetchTalkUserList()
 
     nameInputRef.current.value = ''
   }
@@ -69,7 +69,7 @@ const InfoForm = () => {
     const check = confirm('정말로 해당 유저를 삭제하시겠습니까?')
     if (check) {
       await deleteTalkUser(uid)
-      fetchAllTalkUser()
+      fetchTalkUserList()
     }
   }
 
@@ -103,7 +103,7 @@ const InfoForm = () => {
     if (!e.target?.files) return
     const file = e.target.files[0]
     await uploadTalkUserImage(file, userId)
-    fetchAllTalkUser()
+    fetchTalkUserList()
   }
 
   return (
