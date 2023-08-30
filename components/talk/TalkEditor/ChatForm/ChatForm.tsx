@@ -33,8 +33,11 @@ const ContentForm = () => {
   }
 
   const onClickDelete = async (chatId: string) => {
-    await deleteChat(chatId)
-    fetchTalkChatList()
+    const check = confirm('정말로 해당 채팅을 삭제하시겠습니까?')
+    if (check) {
+      await deleteChat(chatId)
+      fetchTalkChatList()
+    }
   }
 
   return (
