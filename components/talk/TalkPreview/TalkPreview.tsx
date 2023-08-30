@@ -1,6 +1,6 @@
 import { toPng } from 'html-to-image'
 import { useCallback, useContext, useEffect, useRef } from 'react'
-import { ButtonBox, StyledPreview, StyledWrapper } from './TalkPreview.styles'
+import { ButtonBox, PreviewBody, PreviewHead, PreviewInput, StyledPreview, StyledWrapper } from './TalkPreview.styles'
 import { TalkContext } from '@/hooks/useTalkContext'
 import Button from '@/components/common/Button/Button'
 
@@ -22,10 +22,11 @@ const generateDateTimeString = (date: Date) => {
 
 const TalkPreview = () => {
   const previewRef = useRef<HTMLDivElement>(null)
-  const { talkInfo, fetchTalkInfo } = useContext(TalkContext)
+  const { talkInfo, talkChatList, talkUsers, fetchTalkInfo, fetchTalkChatList } = useContext(TalkContext)
 
   useEffect(() => {
     fetchTalkInfo()
+    fetchTalkChatList()
   }, [])
 
   const onClickExportImage = useCallback(() => {
@@ -47,8 +48,26 @@ const TalkPreview = () => {
   return (
     <StyledWrapper>
       <StyledPreview ref={previewRef}>
-        <p>title: {talkInfo?.title}</p>
-        <p>time: {talkInfo?.time}</p>
+        <PreviewHead>
+          <div className="leftBox">leftBox</div>
+          <h2 className="titleBox">
+            <span className="title">{talkInfo.title}</span>
+            <span className="member">{talkUsers.length || ''}</span>
+          </h2>
+          <div className="rightBox">rightBox</div>
+        </PreviewHead>
+        <PreviewBody>
+          {talkChatList.length !== 0 ? (
+            talkChatList.map((chat) => (
+              <div key={chat.chatId}>
+                {chat.user.name} : {chat.content.text}
+              </div>
+            ))
+          ) : (
+            <div>대화 내용이 존재하지 않습니다.</div>
+          )}
+        </PreviewBody>
+        <PreviewInput>입력란</PreviewInput>
       </StyledPreview>
       <ButtonBox>
         <Button type="button" onClick={onClickExportImage} buttonType="PRIMARY_FILLED">
