@@ -7,6 +7,9 @@ import {
   NoUser,
   ProfileBox,
   ProfileUploadButton,
+  SelectMeBox,
+  SelectMeFieldSet,
+  SelectMeLegend,
   TitleRow,
   UserList,
   UserListItem,
@@ -141,6 +144,7 @@ const InfoForm = () => {
             </Button>
           </UsersRow>
         </form>
+
         <UserList>
           {talkUsers.map((user, idx) => (
             <UserListItem key={user.userId}>
@@ -167,6 +171,24 @@ const InfoForm = () => {
           ))}
           {talkUsers.length === 0 && <NoUser>톡방 멤버가 없습니다.</NoUser>}
         </UserList>
+        <SelectMeBox>
+          <SelectMeFieldSet>
+            <SelectMeLegend>톡방 멤버중 &lsquo;나&rsquo; 를 선택해주세요.</SelectMeLegend>
+            {talkUsers.map((user, idx) => (
+              <div key={user.userId} className="radio-box">
+                <input
+                  type="radio"
+                  id={user.name}
+                  value={user.name}
+                  name="userSelect"
+                  defaultChecked={idx === 0}
+                  onClick={(e) => console.log(e.currentTarget.value)}
+                />
+                <label htmlFor={user.name}>{user.name}</label>
+              </div>
+            ))}
+          </SelectMeFieldSet>
+        </SelectMeBox>
       </div>
     </div>
   )

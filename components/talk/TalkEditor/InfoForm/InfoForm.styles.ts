@@ -70,7 +70,7 @@ export const ProfileUploadButton = styled('button', {
 
 export const UserName = styled('div', {
   color: '$GRAY800',
-  padding: '10px',
+  padding: '10px 10px 10px 0',
   textAlign: 'left',
   width: 'calc(100% - 110px)',
   overflow: 'hidden',
@@ -94,4 +94,36 @@ export const NoUser = styled('span', {
   color: '$WARNING500',
   textAlign: 'center',
   border: '1px dashed $GRAY400',
+})
+
+export const CheckboxBox = styled('div', {
+  padding: 10,
+})
+
+export const SelectMeBox = styled('div', {})
+
+export const SelectMeFieldSet = styled('fieldset', {
+  border: '1px dashed $GRAY400',
+  background: 'white',
+  borderRadius: 10,
+  padding: 10,
+  display: 'flex',
+  fontSize: '0.9rem',
+  '& .radio-box': {
+    padding: '3px 8px',
+    display: 'flex',
+    gap: 5,
+    '& label': {
+      cursor: 'pointer',
+    },
+  },
+})
+
+export const SelectMeLegend = styled('legend', {
+  padding: '5px 10px 3px',
+  color: 'white',
+  background: '$GRAY800',
+  fontSize: '0.9rem',
+  fontWeight: 400,
+  borderRadius: 3,
 })
